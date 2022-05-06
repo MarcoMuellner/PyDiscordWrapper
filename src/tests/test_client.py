@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from pyddiscordwrapper import Client, User, Guild, Channel, Role, Member
+from pydiscordwrapper import Client, User, Guild, Channel, Role, Member
 
 
 def test_auth():
