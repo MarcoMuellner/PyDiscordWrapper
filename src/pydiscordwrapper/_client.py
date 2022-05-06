@@ -170,7 +170,7 @@ class AsyncClient(BaseClient):
         if response.status_code != 200:
             raise HTTPException(response.status_code, response.text)
 
-        return AuthToken(response.json())
+        return AuthToken(**response.json())
 
     async def getCurrentUser(self, bot: bool = True) -> User:
         async with httpx.AsyncClient() as client:
