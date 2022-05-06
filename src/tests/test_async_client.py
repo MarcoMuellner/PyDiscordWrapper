@@ -10,7 +10,7 @@ async def test_auth():
     scope = ['identify', 'guilds']
     redirect_uri = 'http://localhost:3000'
     url = AsyncClient.auth(client_id, scope, redirect_uri)
-    assert url == 'https://discordapp.com/api/oauth2/authorize?client_id=15616584861681&scope=identify%20guilds&redirect_uri=http://localhost:3000'
+    assert url == 'https://discord.com/api/oauth2/authorize?client_id=15616584861681&redirect_uri=http://localhost:3000&response_type=code&scope=identify%20guilds'
 
 @pytest.mark.asyncio
 async def test_current_user():
