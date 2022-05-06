@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from PyDiscordWrapper import AsyncClient, User, Guild, Channel, Role, Member
+from pyddiscordwrapper import AsyncClient, User, Guild, Channel, Role, Member
 
 @pytest.mark.asyncio
 async def test_auth():

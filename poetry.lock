@@ -138,7 +138,7 @@ python-versions = ">=3.5"
 name = "importlib-metadata"
 version = "4.11.3"
 description = "Read metadata from Python packages"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -313,7 +313,7 @@ python-versions = ">=3.7"
 name = "zipp"
 version = "3.8.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -324,7 +324,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "d75181c76a1f477c44e90d68a65db85220b2ffc28c8406880628ff4c2740ad74"
+content-hash = "6f6fb3ce1bd606be3e32a6f90daa94f243dfdde42b6f4a01c46aacc346969e99"
 
 [metadata.files]
 anyio = [
