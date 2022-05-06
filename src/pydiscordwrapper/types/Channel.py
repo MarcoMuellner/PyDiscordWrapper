@@ -14,11 +14,11 @@ class Channel(BaseModel):
     permission_overwrites: list
     name: str
     topic: Optional[str]
-    nsfw: bool
+    nsfw: Optional[bool]
     last_message_id: Optional[str]
     bitrate: Optional[int]
     user_limit: Optional[int]
-    rate_limit_per_user: int
+    rate_limit_per_user: Optional[int]
     recipients: Optional[List[User]]
     icon: Optional[str]
     owner_id: Optional[str]
