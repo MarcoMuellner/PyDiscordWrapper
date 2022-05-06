@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "PydDiscordWrapper"
+name = "PyDiscordWrapper"
 version = "0.1.1"
 authors = ["Marco Müllner <muellnermarco@gmail.com>"]
 description = "A simple wrapper for the Discord API for Python using async/non async methods with httpx and pydantic."
