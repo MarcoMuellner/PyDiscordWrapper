@@ -53,7 +53,7 @@ class BaseClient:
 
     def _format_guild_icon(self, guild : Dict[str, Any]) -> Dict[str, Any]:
         if 'icon' in guild.keys() and guild['icon'] is not None:
-            guild['icon'] = GUILD_ICON_CDN.format(guild_id=guild['icon'], icon_hash=guild['icon'])
+            guild['icon'] = GUILD_ICON_CDN.format(guild_id=guild['id'], icon_hash=guild['icon'])
 
         return guild
 
