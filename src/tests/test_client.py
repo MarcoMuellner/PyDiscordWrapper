@@ -4,7 +4,7 @@ import pytest
 
 from pydiscordwrapper import Client, User, Guild, Channel, Role, Member
 
-from src.pydiscordwrapper._endpoints import CDN_URL
+from pydiscordwrapper._endpoints import CDN_URL
 
 
 def test_auth():
