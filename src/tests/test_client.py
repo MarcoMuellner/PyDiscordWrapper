@@ -1,5 +1,6 @@
 import os
 
+import httpx
 import pytest
 
 from pydiscordwrapper import Client, User, Guild, Channel, Role, Member
@@ -38,6 +39,7 @@ def test_get_guild():
     guild = client.getGuild(guilds[0].id, True)
     assert isinstance(guild, Guild)
     assert guild.icon.startswith(CDN_URL) or guild.icon is None
+    assert httpx.get(guild.icon).status_code == 200
 
 
 def test_get_guild_channels():

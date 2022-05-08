@@ -1,5 +1,6 @@
 import os
 
+import httpx
 import pytest
 
 from pydiscordwrapper import AsyncClient, User, Guild, Channel, Role, Member
@@ -38,6 +39,9 @@ async def test_get_guild():
     guilds = await client.getCurrentUserGuilds(True)
     guild = await client.getGuild(guilds[0].id, True)
     assert guild.icon.startswith(CDN_URL) or guild.icon is None
+    async with httpx.AsyncClient() as client:
+        response = await client.get(guild.icon)
+        assert response.status_code == 200
 
 @pytest.mark.asyncio
 async def test_get_guild_channels():
