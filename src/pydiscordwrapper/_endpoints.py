@@ -7,3 +7,6 @@ GUILD = API_BASE_URL + "/guilds/{guild_id}"
 GUILD_CHANNELS = GUILD + "/channels"
 GUILD_MEMBERS = GUILD + "/members"
 GUILD_ROLES = GUILD + "/roles"
+
+CDN_URL = "https://cdn.discordapp.com"
+GUILD_ICON_CDN = CDN_URL + "/icons/{guild_id}/{icon_hash}.jpg"

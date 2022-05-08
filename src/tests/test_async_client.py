@@ -4,6 +4,9 @@ import pytest
 
 from pydiscordwrapper import AsyncClient, User, Guild, Channel, Role, Member
 
+from src.pydiscordwrapper._endpoints import CDN_URL
+
+
 @pytest.mark.asyncio
 async def test_auth():
     client_id = 15616584861681
@@ -26,6 +29,7 @@ async def test_current_user_guilds():
     guilds = await client.getCurrentUserGuilds(True)
     assert isinstance(guilds, list)
     assert isinstance(guilds[0], Guild)
+    assert guilds[0].icon.startswith(CDN_URL) or guilds[0].icon is None
 
 @pytest.mark.asyncio
 async def test_get_guild():
@@ -33,7 +37,7 @@ async def test_get_guild():
     client = AsyncClient(auth_token)
     guilds = await client.getCurrentUserGuilds(True)
     guild = await client.getGuild(guilds[0].id, True)
-    assert isinstance(guild, Guild)
+    assert guild.icon.startswith(CDN_URL) or guild.icon is None
 
 @pytest.mark.asyncio
 async def test_get_guild_channels():

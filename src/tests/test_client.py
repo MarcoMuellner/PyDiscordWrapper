@@ -4,6 +4,8 @@ import pytest
 
 from pydiscordwrapper import Client, User, Guild, Channel, Role, Member
 
+from src.pydiscordwrapper._endpoints import CDN_URL
+
 
 def test_auth():
     client_id = 15616584861681
@@ -26,6 +28,7 @@ def test_current_user_guilds():
     guilds = client.getCurrentUserGuilds(True)
     assert isinstance(guilds, list)
     assert isinstance(guilds[0], Guild)
+    assert guilds[0].icon.startswith(CDN_URL) or guilds[0].icon is None
 
 
 def test_get_guild():
@@ -34,6 +37,7 @@ def test_get_guild():
     guilds = client.getCurrentUserGuilds(True)
     guild = client.getGuild(guilds[0].id, True)
     assert isinstance(guild, Guild)
+    assert guild.icon.startswith(CDN_URL) or guild.icon is None
 
 
 def test_get_guild_channels():

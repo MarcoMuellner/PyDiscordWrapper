@@ -2,7 +2,7 @@ import json
 import time
 from http.client import HTTPException
 from types import TracebackType
-from typing import List, Optional, Type, Union, Tuple
+from typing import List, Optional, Type, Union, Tuple, Any, Dict
 
 import httpx
 
@@ -50,6 +50,12 @@ class BaseClient:
                 [(key, value) for (key, value) in response.headers.raw if key == b'x-ratelimit-reset-after'][0][1])
         else:
             return False, 0
+
+    def _format_guild_icon(self, guild : Dict[str, Any]) -> Dict[str, Any]:
+        if 'icon' in guild.keys() and guild['icon'] is not None:
+            guild['icon'] = GUILD_ICON_CDN.format(guild_id=guild['icon'], icon_hash=guild['icon'])
+
+        return guild
 
 
 class Client(BaseClient):
@@ -99,7 +105,7 @@ class Client(BaseClient):
         if response.status_code != 200:
             raise HTTPException(response.status_code, response.text)
 
-        return [Guild(**i) for i in response.json()]
+        return [Guild(**self._format_guild_icon(i)) for i in response.json()]
 
     def getGuild(self, guild_id: Union[int, str], bot: bool = True) -> Guild:
         response = httpx.get(GUILD.format(guild_id=guild_id), headers=self._auth(bot))
@@ -107,7 +113,7 @@ class Client(BaseClient):
         if response.status_code != 200:
             raise HTTPException(response.status_code, response.text)
 
-        return Guild(**response.json())
+        return Guild(**self._format_guild_icon(response.json()))
 
     def getGuildChannels(self, guild_id: Union[int, str], bot: bool = True) -> List[Channel]:
         response = httpx.get(GUILD_CHANNELS.format(guild_id=guild_id), headers=self._auth(bot))
@@ -193,7 +199,12 @@ class AsyncClient(BaseClient):
         if response.status_code != 200:
             raise HTTPException(response.status_code, response.text)
 
-        return [Guild(**i) for i in response.json()]
+        response_data = response.json()
+        for guild in response_data:
+            if guild['icon'] is not None:
+                guild['icon'] = GUILD_ICON_CDN.format(guild_id=guild['icon'], icon_hash=guild['icon'])
+
+        return [Guild(**self._format_guild_icon(i)) for i in response_data]
 
     async def getGuild(self, guild_id: Union[int, str], bot: bool = True) -> Guild:
         async with httpx.AsyncClient() as client:
@@ -202,7 +213,7 @@ class AsyncClient(BaseClient):
         if response.status_code != 200:
             raise HTTPException(response.status_code, response.text)
 
-        return Guild(**response.json())
+        return Guild(**self._format_guild_icon(response.json()))
 
     async def getGuildChannels(self, guild_id: Union[int, str], bot: bool = True) -> List[Channel]:
         async with httpx.AsyncClient() as client:
