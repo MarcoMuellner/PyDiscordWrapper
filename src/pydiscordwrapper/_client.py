@@ -199,12 +199,7 @@ class AsyncClient(BaseClient):
         if response.status_code != 200:
             raise HTTPException(response.status_code, response.text)
 
-        response_data = response.json()
-        for guild in response_data:
-            if guild['icon'] is not None:
-                guild['icon'] = GUILD_ICON_CDN.format(guild_id=guild['icon'], icon_hash=guild['icon'])
-
-        return [Guild(**self._format_guild_icon(i)) for i in response_data]
+        return [Guild(**self._format_guild_icon(i)) for i in response.json()]
 
     async def getGuild(self, guild_id: Union[int, str], bot: bool = True) -> Guild:
         async with httpx.AsyncClient() as client:
