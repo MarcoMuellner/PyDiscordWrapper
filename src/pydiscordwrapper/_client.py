@@ -51,7 +51,7 @@ class BaseClient:
         else:
             return False, 0
 
-    def _format_guild_icon(self, guild : Dict[str, Any]) -> Dict[str, Any]:
+    def _format_guild_icon(self, guild: Dict[str, Any]) -> Dict[str, Any]:
         if 'icon' in guild.keys() and guild['icon'] is not None:
             guild['icon'] = GUILD_ICON_CDN.format(guild_id=guild['id'], icon_hash=guild['icon'])
 
@@ -106,6 +106,14 @@ class Client(BaseClient):
             raise HTTPException(response.status_code, response.text)
 
         return [Guild(**self._format_guild_icon(i)) for i in response.json()]
+
+    def getCurrentUserGuildMember(self, guild_id: Union[int, str], bot: bool = True) -> Member:
+        response = httpx.get(CURRENT_USER_GUILD_MEMBER.format(guild_id=guild_id), headers=self._auth(bot))
+
+        if response.status_code != 200:
+            raise HTTPException(response.status_code, response.text)
+
+        return Member(**response.json())
 
     def getGuild(self, guild_id: Union[int, str], bot: bool = True) -> Guild:
         response = httpx.get(GUILD.format(guild_id=guild_id), headers=self._auth(bot))
@@ -200,6 +208,15 @@ class AsyncClient(BaseClient):
             raise HTTPException(response.status_code, response.text)
 
         return [Guild(**self._format_guild_icon(i)) for i in response.json()]
+
+    async def getCurrentUserGuildMember(self, guild_id: Union[int, str], bot: bool = True) -> Member:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(CURRENT_USER_GUILD_MEMBER.format(guild_id=guild_id), headers=self._auth(bot))
+
+        if response.status_code != 200:
+            raise HTTPException(response.status_code, response.text)
+
+        return Member(**response.json())
 
     async def getGuild(self, guild_id: Union[int, str], bot: bool = True) -> Guild:
         async with httpx.AsyncClient() as client:
