@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "PyDiscordWrapper"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Marco Müllner <muellnermarco@gmail.com>"]
 description = "A simple wrapper for the Discord API for Python using async/non async methods with httpx and pydantic."
 license = "MIT"
@@ -11,7 +11,7 @@ keywords = ["discord","wrapper","api","python","async","non","async","httpx","py
 
 [tool.poetry.dependencies]
 python = "^3.7"
-httpx = "^0.22.0"
+httpx = "^0.23.0"
 pydantic = "^1.9.0"
 importlib-metadata = {version = "^4.11.3", python = "<3.8"}
 
