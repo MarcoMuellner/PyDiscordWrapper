@@ -7,7 +7,7 @@ class User(BaseModel):
     id: str
     username: str
     discriminator: str
-    avatar: str
+    avatar: Optional[str]
     bot: Optional[bool]
     system: Optional[bool]
     mfa_enabled: Optional[bool]
